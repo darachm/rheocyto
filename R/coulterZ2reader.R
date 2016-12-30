@@ -4,8 +4,10 @@
 #' 
 #' @param datadir this is a directory of Z2 files
 #' 
-#' @return dataframe of Z2 data
-#' @export
+#' @return dataframe of Z2 data, with columns "binDiameter" (the 
+#' diameter of a certain bin), "binCounts" (the counts of events in 
+#' that bin), and "fileName" (the file read for that observation).
+#' 
 #' @examples
 #' cz2 <- coulterZ2reader("exampleFlowDataset2")
 
@@ -23,7 +25,7 @@ coulterZ2reader <- function(datadir) {
   	binheight <- as.numeric(tmp[
       (grep("Binheight",tmp)+1): (grep("\\[end\\]",tmp)-1)])
 # and take that slice into a data.frame for return
-  	dat[[fz]] <- data.frame(bins=binunits,height=binheight,fz=fz)
+  	dat[[fz]] <- data.frame(binDiameter=binunits,binCounts=binheight,fileName=fz)
   }
 #this part could be better, but this has no dependencies so that's nice
 #we simply build a larger dataframe from each of the small ones
